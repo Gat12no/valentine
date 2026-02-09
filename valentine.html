@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dino Valentine 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: #ffe6f0;
+        font-family: "Comic Sans MS", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        z-index: 2;
+        margin-top: 20px;
+    }
+
+    h1 {
+        color: #ff4d88;
+    }
+
+    button {
+        border: none;
+        padding: 12px 20px;
+        margin: 10px;
+        font-size: 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+        background: #4CAF50;
+        color: white;
+    }
+
+    #noBtn {
+        background: #f44336;
+        color: white;
+    }
+
+    /* Dino GIF */
+    .dino {
+        width: 200px;
+        cursor: grab;
+        user-select: none;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Dino GIF -->
+<img
+    src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+    class="dino"
+    id="dino"
+    alt="Cute Dinosaur"
+/>
+
+<!-- Valentine Card -->
+<div class="card" id="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
+    <button id="noBtn" onclick="growYes()">No 🙃</button>
+</div>
+
+<script>
+    const dino = document.getElementById("dino");
+
+    // Dragging the dino
+    let dragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    dino.addEventListener("mousedown", (e) => {
+        dragging = true;
+        offsetX = e.clientX - dino.getBoundingClientRect().left;
+        offsetY = e.clientY - dino.getBoundingClientRect().top;
+        dino.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mouseup", () => {
+        dragging = false;
+        dino.style.cursor = "grab";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (dragging) {
+            dino.style.position = "absolute";
+            dino.style.left = e.clientX - offsetX + "px";
+            dino.style.top = e.clientY - offsetY + "px";
+        }
+    });
+
+    // Buttons
+    let yesSize = 18;
+
+    function growYes() {
+        yesSize += 10;
+        const yesBtn = document.getElementById("yesBtn");
+        yesBtn.style.fontSize = yesSize + "px";
+        yesBtn.style.padding = (12 + yesSize / 4) + "px";
+    }
+
+    function sayYes() {
+        // Change card content
+        document.getElementById("card").innerHTML = `
+            <h1>YAY!!! 💖</h1>
+            <p>The dinosaur is very happy 🥰</p>
+        `;
+        // Change dino image to YEE dinosaur
+        dino.src = "https://preview.redd.it/v7r29mwx3tqa1.jpg?width=640&crop=smart&auto=webp&s=64f9e8d85cdab403d9e29e37d7d9a56ff591f88c";
+    }
+</script>
+
+</body>
+</html>
